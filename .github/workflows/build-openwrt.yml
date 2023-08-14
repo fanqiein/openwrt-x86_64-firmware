@@ -21,7 +21,7 @@ on:
 
 env:
   REPO_URL: https://github.com/openwrt/openwrt
-  REPO_BRANCH: openwrt-22.03
+  REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: .config
   DIY_P1_SH: diy-part1.sh
@@ -35,6 +35,9 @@ env:
 
 jobs:
   build:
+
+  name: Build K2P Firmware 22.03.4
+  
     runs-on: ubuntu-20.04
 
     steps:
@@ -60,6 +63,9 @@ jobs:
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+        cd openwrt
+        git tag
+        git checkout v22.03.4
 
     - name: Load custom feeds
       run: |
